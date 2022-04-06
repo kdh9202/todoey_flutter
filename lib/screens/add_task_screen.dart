@@ -1,14 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter/models/task.dart';
+
 
 class AddTaskScreen extends StatefulWidget {
-  const AddTaskScreen({Key? key}) : super(key: key);
 
   @override
   State<AddTaskScreen> createState() => _AddTaskScreenState();
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
+
+  final textFieldController =  TextEditingController();
+  late String inputText;
+
+  void dispose(){
+    textFieldController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,12 +40,18 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   fontWeight: FontWeight.w500,
                   color: Colors.lightBlueAccent),
             ),
-            const TextField(
+            TextField(
               autofocus: true,
               textAlign: TextAlign.center,
+              controller: textFieldController,
+              // onChanged: (newText){
+              //   inputText = newText;
+              // },
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                //;
+              },
               child: const Text('Add'),
               style: ElevatedButton.styleFrom(primary: Colors.lightBlueAccent),
             )
