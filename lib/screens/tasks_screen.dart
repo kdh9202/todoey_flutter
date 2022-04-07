@@ -1,20 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter/models/task_data.dart';
 import 'package:todoey_flutter/widgets/tasks_list.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/models/task.dart';
+import 'package:todoey_flutter/models/task_data.dart';
+import 'package:provider/provider.dart';
 
-class TasksScreen extends StatefulWidget {
-
-  @override
-  State<TasksScreen> createState() => _TasksScreenState();
-}
-
-class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks =[
-    Task(name: 'Task'),
-    Task(name: 'Task2'),
-  ];
+class TasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +18,9 @@ class _TasksScreenState extends State<TasksScreen> {
         child: const Icon(Icons.add),
         onPressed: () {
           showModalBottomSheet(
-              context: context, builder: (context) => AddTaskScreen());
+              context: context,
+            builder: (context) => AddTaskScreen(),
+          );
         },
       ),
       body: Column(
@@ -36,8 +31,8 @@ class _TasksScreenState extends State<TasksScreen> {
                 const EdgeInsets.only(top: 60, left: 30, right: 30, bottom: 30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                CircleAvatar(
+              children: [
+                const CircleAvatar(
                   backgroundColor: Colors.white,
                   radius: 30,
                   child: Icon(
@@ -46,10 +41,10 @@ class _TasksScreenState extends State<TasksScreen> {
                     size: 30,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                Text(
+                const Text(
                   'Todoey',
                   style: TextStyle(
                       color: Colors.white,
@@ -57,8 +52,8 @@ class _TasksScreenState extends State<TasksScreen> {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '12 Tasks',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  '${Provider.of<TaskData>(context).taskCount} Tasks',
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
                 )
               ],
             ),
@@ -71,7 +66,7 @@ class _TasksScreenState extends State<TasksScreen> {
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20))),
-            child: TasksList(tasks),
+            child: TasksList(),
           ))
         ],
       ),

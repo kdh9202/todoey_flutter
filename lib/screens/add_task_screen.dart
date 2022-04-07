@@ -1,23 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:todoey_flutter/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/models/task_data.dart';
 
 
-class AddTaskScreen extends StatefulWidget {
+class AddTaskScreen extends StatelessWidget {
+  //
+  // final Function addTaskCallback;
+  //
+  // AddTaskScreen(this.addTaskCallback);
 
-  @override
-  State<AddTaskScreen> createState() => _AddTaskScreenState();
-}
-
-class _AddTaskScreenState extends State<AddTaskScreen> {
-
-  final textFieldController =  TextEditingController();
+  //final textFieldController =  TextEditingController();
   late String inputText;
 
-  void dispose(){
-    textFieldController.dispose();
-    super.dispose();
-  }
+  //AddTaskScreen(String inputText);
+
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +41,17 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             TextField(
               autofocus: true,
               textAlign: TextAlign.center,
-              controller: textFieldController,
-              // onChanged: (newText){
-              //   inputText = newText;
-              // },
+              //controller: textFieldController,
+              onChanged: (newText){
+                inputText = newText;
+              },
             ),
             ElevatedButton(
               onPressed: () {
-                //;
+                // addTaskCallback(inputText);
+                //final task = Task(name: inputText);
+                Provider.of<TaskData>(context, listen: false).addTask(inputText);
+                Navigator.pop(context);
               },
               child: const Text('Add'),
               style: ElevatedButton.styleFrom(primary: Colors.lightBlueAccent),
